@@ -1,0 +1,78 @@
+{
+  "name": "mint-replica-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.71.0",
+    "@react-navigation/native": "^6.1.0",
+    "react-native-safe-area-context": "^4.5.0",
+    "react-native-screens": "^3.20.0",
+    "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.5",
+    "@reduxjs/toolkit": "^1.9.0",
+    "axios": "^1.3.0",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-svg": "^13.8.0",
+    "react-native-reanimated": "^2.14.0",
+    "react-native-gesture-handler": "^2.9.0",
+    "@react-native-community/async-storage": "^1.12.1",
+    "react-native-dotenv": "^3.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@types/jest": "^29.4.0",
+    "@types/react": "^18.0.27",
+    "@types/react-native": "^0.71.0",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.4.0",
+    "eslint": "^8.33.0",
+    "jest": "^29.4.0",
+    "metro-react-native-babel-preset": "^0.75.0",
+    "prettier": "^2.8.3",
+    "react-test-renderer": "^18.2.0",
+    "typescript": "^4.9.5"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
+```
+
+This package.json file includes all the required dependencies and devDependencies for the Mint Replica mobile application, as specified in the JSON representation. It also includes the necessary scripts for running, testing, and linting the application.
+
+Here are some comments about the configuration:
+
+1. The name and version are set as specified in the JSON representation.
+2. The `private` field is set to true to prevent accidental publication to npm.
+3. Scripts are included for running the app on Android and iOS, starting the Metro bundler, running tests, linting, and formatting the code.
+4. Dependencies include React Native and related libraries, navigation libraries, state management (Redux), HTTP client (axios), charting libraries, and other utilities.
+5. DevDependencies include TypeScript, testing libraries, and development tools.
+6. The Jest configuration is set up for React Native with support for TypeScript files.
+
+Note: The versions of the packages are set to recent stable versions as of my knowledge cutoff. In a real-world scenario, you may want to review and update these versions periodically.
+
+Human tasks (as comments in the file):
+
+```json
+// TODO: Update the version number as the project progresses
+// TODO: Add any additional scripts that may be needed for the development process
+// TODO: Review and update dependencies and their versions periodically
