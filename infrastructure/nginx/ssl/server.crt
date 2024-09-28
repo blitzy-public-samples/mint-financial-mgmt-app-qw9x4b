@@ -1,0 +1,15 @@
+# This is a placeholder for the actual SSL/TLS certificate content.
+# Do not use this in production. Replace this with a valid certificate
+# obtained from a trusted Certificate Authority (CA).
+
+# The certificate should contain:
+# 1. The server's public key
+# 2. The digital signature of the Certificate Authority (CA)
+# 3. Information about the certificate holder (Common Name, Organization, etc.)
+# 4. Validity period of the certificate
+
+# Example structure (DO NOT USE THIS):
+# MIIDazCCAlOgAwIBAgIUALEQBXXXXXXXXXXXXXXXXXXXXXXXXXX=
+# ... (certificate content) ...
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==
+-----END CERTIFICATE-----
