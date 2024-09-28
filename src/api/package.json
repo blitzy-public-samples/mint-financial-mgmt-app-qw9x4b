@@ -1,0 +1,72 @@
+{
+  "name": "mint-replica-api",
+  "version": "1.0.0",
+  "description": "Node.js package configuration file for the API server of the Mint Replica application",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "author": "Mint Replica Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "typescript": "^4.5.5",
+    "pg": "^8.7.1",
+    "mongodb": "^4.3.1",
+    "redis": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "cors": "^2.8.5",
+    "helmet": "^5.0.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.5.1",
+    "joi": "^17.6.0",
+    "swagger-ui-express": "^4.3.0",
+    "plaid": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.10",
+    "@types/pg": "^8.6.4",
+    "@types/mongodb": "^4.0.7",
+    "@types/redis": "^4.0.11",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/morgan": "^1.9.3",
+    "@types/jest": "^27.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "eslint": "^8.7.0",
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.4.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+```
+
+This `package.json` file includes all the necessary dependencies and scripts for the Mint Replica API server. Here are some key points about the configuration:
+
+1. The main entry point is set to `dist/server.js`, which will be the compiled JavaScript file.
+2. Scripts are provided for starting the server, running in development mode with nodemon, building the TypeScript code, running tests, linting, and formatting.
+3. All the required dependencies are listed, including Express, TypeScript, database drivers (PostgreSQL, MongoDB, Redis), authentication libraries, and other utility packages.
+4. DevDependencies include type definitions for TypeScript, testing libraries, and development tools like ESLint and Prettier.
+5. The engine specification ensures that the project runs on Node.js version 14.0.0 or higher.
+
+Human tasks mentioned in the JSON specification:
+
+```
+// TODO: Update the version number and author information
+// TODO: Review and adjust dependencies versions if needed
+// TODO: Add any additional project-specific scripts
