@@ -1,0 +1,79 @@
+buildscript {
+    ext {
+        buildToolsVersion = "33.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+        // You can update the following values to the latest versions
+        // Check out the latest versions at https://reactnative.dev/docs/upgrading
+        kotlinVersion = '1.7.20'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.facebook.react'
+
+/**
+ * This project extension contains common compilation options for the application.
+ */
+project.ext.react = [
+    enableHermes: true
+]
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.mintreplicaapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Add any other necessary configurations here
+}
+
+dependencies {
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}")
+    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
+
+    // Add any other dependencies your project requires
+}
+
+// Run this once to be able to run the application with BUCK
+// puts all compile dependencies into folder libs for BUCK to use
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.implementation
+    into 'libs'
+}
+
+// Add any other necessary tasks or configurations here
+
+/**
+ * TODO: Human Tasks
+ * 1. Update applicationId to match the actual package name for the Mint Replica app
+ * 2. Verify and update dependency versions to their latest stable releases
+ * 3. Configure signing configs for release builds
+ * 4. Add any additional project-specific dependencies or plugins
+ */
