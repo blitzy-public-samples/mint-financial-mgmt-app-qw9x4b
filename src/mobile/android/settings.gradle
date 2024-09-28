@@ -1,0 +1,8 @@
+rootProject.name = 'MintReplica'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+includeBuild('../node_modules/react-native-gradle-plugin')
+
+// Human tasks:
+// TODO: Verify that the rootProject.name matches the desired application name
+// TODO: Ensure that all required React Native modules are correctly linked in the Android project
