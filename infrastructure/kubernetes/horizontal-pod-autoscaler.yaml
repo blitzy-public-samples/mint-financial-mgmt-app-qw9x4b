@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mint-replica-backend-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mint-replica-backend
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+
+---
+# Human Tasks:
+# 1. Review and adjust minReplicas and maxReplicas based on expected load and cost considerations (Required)
+# 2. Consider adding memory-based scaling metric if applicable (Optional)
+# 3. Ensure the backend deployment has resource requests set for CPU (Critical)
+# 4. Monitor HPA behavior in production and fine-tune targetAverageUtilization if necessary (Required)
