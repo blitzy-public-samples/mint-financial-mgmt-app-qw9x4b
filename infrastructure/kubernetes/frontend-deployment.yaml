@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mint-replica-frontend
+  labels:
+    app: mint-replica
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mint-replica
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: mint-replica
+        tier: frontend
+    spec:
+      containers:
+      - name: mint-replica-frontend
+        image: mint-replica-frontend:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mint-replica-config
+              key: api-url
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 300m
+            memory: 256Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+# Human tasks:
+# - Review and adjust resource limits based on actual frontend application requirements
+# - Set up proper image versioning and update the image tag accordingly
+# - Create and configure the mint-replica-config ConfigMap in Kubernetes
+# - Ensure the frontend application is built and optimized for production use
+# - Configure proper nginx or other web server settings within the frontend container
