@@ -1,0 +1,312 @@
+openapi: 3.0.0
+info:
+  title: Mint Replica API
+  version: 1.0.0
+  description: API documentation for the Mint Replica personal financial management application
+
+servers:
+  - url: https://api.mintreplica.com/v1
+    description: Production server
+  - url: https://staging-api.mintreplica.com/v1
+    description: Staging server
+  - url: http://localhost:3000/v1
+    description: Local development server
+
+paths:
+  /auth:
+    post:
+      summary: User authentication
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Unauthorized
+
+  /users:
+    get:
+      summary: Get user profile
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          description: Unauthorized
+
+  /accounts:
+    get:
+      summary: Get user accounts
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+
+  /transactions:
+    get:
+      summary: Get user transactions
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date
+          description: Start date for transaction filter
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date
+          description: End date for transaction filter
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          description: Unauthorized
+
+  /budgets:
+    get:
+      summary: Get user budgets
+      tags:
+        - Budgets
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Budget'
+        '401':
+          description: Unauthorized
+
+  /goals:
+    get:
+      summary: Get user financial goals
+      tags:
+        - Goals
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goal'
+        '401':
+          description: Unauthorized
+
+  /investments:
+    get:
+      summary: Get user investments
+      tags:
+        - Investments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Investment'
+        '401':
+          description: Unauthorized
+
+  /credit-score:
+    get:
+      summary: Get user credit score
+      tags:
+        - Credit Score
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditScore'
+        '401':
+          description: Unauthorized
+
+components:
+  schemas:
+    AuthRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserProfile'
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [checking, savings, credit, investment]
+        balance:
+          type: number
+        currency:
+          type: string
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+        accountId:
+          type: string
+
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        amount:
+          type: number
+        period:
+          type: string
+          enum: [weekly, monthly, yearly]
+        spent:
+          type: number
+
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        targetAmount:
+          type: number
+        currentAmount:
+          type: number
+        deadline:
+          type: string
+          format: date
+
+    Investment:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [stock, bond, etf, mutual_fund]
+        value:
+          type: number
+        quantity:
+          type: number
+
+    CreditScore:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 300
+          maximum: 850
+        lastUpdated:
+          type: string
+          format: date
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+# Human tasks:
+# - Review and update API endpoints as new features are developed (Required)
+# - Ensure all response schemas are accurately defined (Required)
+# - Add detailed descriptions for each endpoint and schema (Optional)
+# - Implement and document pagination for list endpoints (Required)
+# - Add example requests and responses for each endpoint (Optional)
