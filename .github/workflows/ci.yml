@@ -1,0 +1,59 @@
+name: Mint Replica CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        npm ci
+        pip install -r src/ml/requirements.txt
+
+    - name: Run linters
+      run: |
+        npm run lint:js
+        npm run lint:ts
+        npm run lint:css
+
+    - name: Run unit tests
+      run: npm run test:unit
+
+    - name: Run integration tests
+      run: npm run test:integration
+
+    - name: Run ML model tests
+      run: python -m pytest src/ml/tests
+
+    - name: Build frontend
+      run: npm run build:frontend
+
+    - name: Build backend
+      run: npm run build:backend
+
+    - name: Build mobile app
+      run: npm run build:mobile
+
+# Human tasks (commented):
+# TODO: Set up environment variables for sensitive information (Required)
+# TODO: Configure code coverage reporting (Optional)
+# TODO: Set up caching for dependencies to speed up workflow (Optional)
