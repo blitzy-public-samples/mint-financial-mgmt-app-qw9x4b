@@ -1,0 +1,9 @@
+Disallow: /api/
+Disallow: /auth/
+Allow: /$
+Allow: /public/
+Sitemap: https://www.mintreplicaapp.com/sitemap.xml
+
+# Human tasks:
+# 1. Review and adjust the robots.txt content based on the specific SEO and security requirements of the Mint Replica application
+# 2. Update the Sitemap URL with the actual domain name once it's finalized
