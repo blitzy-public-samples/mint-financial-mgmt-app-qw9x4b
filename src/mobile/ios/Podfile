@@ -1,0 +1,36 @@
+platform :ios, '13.0'
+
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+target 'MintReplica' do
+  config = use_native_modules!
+  use_react_native!(:path => config[:reactNativePath])
+
+  # Pods for MintReplica
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'react-native-charts-wrapper', :path => '../node_modules/react-native-charts-wrapper'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+  pod 'RNKeychain', :path => '../node_modules/react-native-keychain'
+
+  # Pods for financial data aggregation (e.g., Plaid)
+  pod 'Plaid', '~> 3.1'
+
+  target 'MintReplicaTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  # Enables Flipper.
+  use_flipper!()
+
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+end
+
+# HUMAN TASKS:
+# TODO: Verify and update the iOS deployment target version if needed
+# TODO: Confirm the correct version of the Plaid pod and update if necessary
+# TODO: Add any additional iOS-specific dependencies that may be required for custom native modules
