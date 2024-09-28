@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mint-replica-config
+  labels:
+    app: mint-replica
+data:
+  api-url: "http://mint-replica-backend-service:3000"
+  environment: "production"
+  log-level: "info"
+  max-upload-size: "10m"
+  allowed-origins: "https://mint-replica.example.com"
+  feature-flags: "{\"enableInvestments\": true, \"enableCreditScore\": true}"
+  redis-host: "redis-service"
+  redis-port: "6379"
+  database-host: "mint-replica-postgresql-service"
+  database-port: "5432"
+  database-name: "mint_replica"
+
+# Human Tasks:
+# - Review and update the API URL to match the actual backend service name and port
+# - Verify and update the allowed-origins value with the actual frontend domain
+# - Review and adjust feature flags based on the current state of the application
+# - Ensure that the Redis and database service names are correct
+# - Consider moving sensitive configuration data to Kubernetes Secrets
