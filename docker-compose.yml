@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    image: mint-replica-backend
+    container_name: mint-replica-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://user:password@postgres:5432/mint_replica
+      - MONGODB_URI=mongodb://mongo:27017/mint_replica
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - PLAID_CLIENT_ID=${PLAID_CLIENT_ID}
+      - PLAID_SECRET=${PLAID_SECRET}
+    depends_on:
+      - postgres
+      - mongo
+      - redis
+
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    image: mint-replica-frontend
+    container_name: mint-replica-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:13
+    container_name: mint-replica-postgres
+    environment:
+      - POSTGRES_DB=mint_replica
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:4.4
+    container_name: mint-replica-mongo
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:6
+    container_name: mint-replica-redis
+    volumes:
+      - redis_data:/data
+
+  ml_service:
+    build:
+      context: ./src/ml
+      dockerfile: Dockerfile
+    image: mint-replica-ml
+    container_name: mint-replica-ml
+    ports:
+      - "5000:5000"
+    environment:
+      - MODEL_PATH=/app/models
+      - DATABASE_URL=postgresql://user:password@postgres:5432/mint_replica
+      - MONGODB_URI=mongodb://mongo:27017/mint_replica
+    depends_on:
+      - postgres
+      - mongo
+
+volumes:
+  postgres_data:
+    driver: local
+  mongo_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  mint-replica-network:
+    driver: bridge
+
+# Human Tasks:
+# - Set up environment-specific .env files with actual values for sensitive information like JWT_SECRET, PLAID_CLIENT_ID, and PLAID_SECRET
+# - Review and adjust resource allocations (e.g., CPU, memory) for each service based on expected load
+# - Implement proper logging and monitoring solutions
+# - Set up a reverse proxy (e.g., Nginx) for SSL termination and load balancing in production
