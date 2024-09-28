@@ -1,0 +1,42 @@
+{
+  "name": "mint-replica-database",
+  "version": "1.0.0",
+  "description": "Database module for the Mint Replica personal financial management application",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "migrate:postgres": "node-pg-migrate",
+    "migrate:mongodb": "migrate-mongo",
+    "seed:postgres": "ts-node src/database/seeders/postgresql/index.ts",
+    "seed:mongodb": "ts-node src/database/seeders/mongodb/index.ts"
+  },
+  "dependencies": {
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "mongodb": "^4.1.1",
+    "mongoose": "^6.0.5",
+    "redis": "^3.1.2",
+    "node-pg-migrate": "^5.10.0",
+    "migrate-mongo": "^8.2.3",
+    "dotenv": "^10.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "eslint": "^7.32.0",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
