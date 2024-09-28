@@ -1,0 +1,27 @@
+{
+  "name": "mint-replica",
+  "version": "1.0.0",
+  "description": "A comprehensive personal financial management application",
+  "private": true,
+  "workspaces": [
+    "src/frontend",
+    "src/backend"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn workspace mint-replica-frontend start\" \"yarn workspace mint-replica-backend start\"",
+    "dev": "concurrently \"yarn workspace mint-replica-frontend start\" \"yarn workspace mint-replica-backend dev\"",
+    "build": "yarn workspace mint-replica-frontend build && yarn workspace mint-replica-backend build",
+    "test": "yarn workspace mint-replica-frontend test && yarn workspace mint-replica-backend test",
+    "lint": "yarn workspace mint-replica-frontend lint && yarn workspace mint-replica-backend lint",
+    "format": "yarn workspace mint-replica-frontend format && yarn workspace mint-replica-backend format",
+    "migrate": "yarn workspace mint-replica-backend migrate",
+    "seed": "yarn workspace mint-replica-backend seed"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": ">=1.22.0"
+  }
+}
